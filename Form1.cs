@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -46,27 +47,72 @@ namespace CadastroEventoProway
         }
 
         private void btnCadastrar_Click(object sender, EventArgs e)
-        {
+        { 
             if (txtNome.Text == "")
             {
                 MessageBox.Show("Informe seu nome completo!!");
                 return;
             }
 
-            Cadastro cadastro = new Cadastro();
-            cadastro.Nome = txtNome.Text;
-            cadastro.Nascimento = mtbNascimento.Text;
-            cadastro.Sala = Convert.ToInt32(nudSala.Text);
-            dgvLista.Rows.Add(new Object[] { cadastro.Nome,cadastro.Nascimento, cadastro.Sala });
-            LimparCampos();
-
-            tbCadastro.SelectedIndex = 0;
+           
         }
 
         private void LimparCampos()
         {
             txtNome.Text = "";
             mtbNascimento.Text = "";
+        }
+
+        private void btnLimpar_Click(object sender, EventArgs e)
+        {
+            txtNome.Text = "";
+            mtbNascimento.Text = "";
+        }
+
+        private void btnCadastrar_Click_1(object sender, EventArgs e)
+        {
+            if (txtNome.Text == "")
+            {
+                MessageBox.Show("Informe seu nome completo!!");
+                txtNome.Focus();
+                return;
+            }
+
+            if (txtEmail.Text == "")
+            {
+                MessageBox.Show("Informe seu Email!!");
+                txtEmail.Focus();
+                return;
+            }
+
+            if (cbAla.Text == "")
+            {
+                MessageBox.Show("Informe a ala do café!!");
+                cbAla.Focus();
+                return;
+            }
+
+            Cadastro cadastro = new Cadastro();
+            cadastro.Nome = txtNome.Text;
+            cadastro.Nascimento = mtbNascimento.Text;
+            cadastro.Email = txtEmail.Text;
+            cadastro.Sala = Convert.ToInt32(nudSala.Text);
+            cadastro.Ala = cbAla.Text;
+            dgvLista.Rows.Add(new Object[] { cadastro.Nome, cadastro.Nascimento, cadastro.Email, cadastro.Sala, cadastro.Ala });
+            LimparCampos();
+
+            tbCadastro.SelectedIndex = 0;
+
+
+
+        }
+
+        private void btnExcluir_Click(object sender, EventArgs e)
+        {
+            if (dgvLista.Rows.Count > 0)
+            {
+                dgvLista.Rows.Remove(dgvLista.CurrentRow);
+            }
         }
     }
 }
